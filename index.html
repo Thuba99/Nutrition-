@@ -1,68 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Is My Food Healthy?</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      max-width: 600px;
-      margin: auto;
-      background-color: #f8f8f8;
-    }
-    input, button {
-      padding: 12px;
-      font-size: 16px;
-      width: 100%;
-      margin-bottom: 10px;
-      box-sizing: border-box;
-    }
-    button {
-      background: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-    }
-    #result {
-      margin-top: 20px;
-      background: white;
-      padding: 10px;
-      border-radius: 5px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Check the healthiness of food.">
+    <title>Food Health Checker</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h2>Is Your Food Healthy?</h2>
-  <p>Enter a barcode (e.g., 737628064502):</p>
-  <input type="text" id="foodInput" placeholder="Enter barcode">
-  <button onclick="checkFood()">Check</button>
-  <div id="result"></div>
+    <header>
+        <h1>Food Health Checker</h1>
+        <p>Scan barcodes or search food names to check if your food is healthy!</p>
+    </header>
 
-  <script>
-    async function checkFood() {
-      const input = document.getElementById("foodInput").value.trim();
-      const res = await fetch(`https://world.openfoodfacts.org/api/v0/product/${input}.json`);
-      const data = await res.json();
+    <main>
+        <section id="food-search">
+            <h2>Search or Scan Food</h2>
+            <input type="text" id="food-name" placeholder="Enter food name" />
+            <button id="search-button">Search</button>
+            <p>Or</p>
+            <button id="scan-button">Scan Barcode</button>
+        </section>
 
-      if (data.status === 1) {
-        const product = data.product;
-        const grade = product.nutrition_grades || "unknown";
-        const sugar = product.nutriments.sugars_100g || "N/A";
-        const fat = product.nutriments.fat_100g || "N/A";
-        const salt = product.nutriments.salt_100g || "N/A";
+        <section id="results" class="hidden">
+            <h2>Results:</h2>
+            <p id="food-info">Loading...</p>
+        </section>
+    </main>
 
-        document.getElementById("result").innerHTML = `
-          <strong>${product.product_name || 'Unknown Product'}</strong><br>
-          Nutrition Grade: <b>${grade.toUpperCase()}</b><br>
-          Sugar: ${sugar}g<br>
-          Fat: ${fat}g<br>
-          Salt: ${salt}g
-        `;
-      } else {
-        document.getElementById("result").innerHTML = "Food not found.";
-      }
-    }
-  </script>
+    <footer>
+        <p>Made with ❤️ by Your Name</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
